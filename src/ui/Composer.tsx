@@ -40,19 +40,37 @@ export default function Composer({ topicId, onPosted }: ComposerProps) {
 
     setIsSubmitting(true);
     try {
+      // Get current user
+      const { data: { user }, error: userError } = await supabase.auth.getUser();
+      
+      if (userError || !user) {
+        alert("You must be signed in to post. Please sign in and try again.");
+        setIsSubmitting(false);
+        return;
+      }
+      
       const { data, error } = await supabase
         .from("posts")
         .insert({
           topic_id: topicId,
+          author_id: user.id,
           title: title.trim(),
           body: body.trim(),
           tag,
           is_anonymous: isAnonymous,
         })
-        .select("id,title,body,tag,is_anonymous,score,created_at,author:profiles(handle)")
+        .select("id,title,body,tag,is_anonymous,score,created_at,author:profiles!posts_author_id_fkey(handle)")
         .single();
 
-      if (error) throw error;
+      if (error) {
+        console.error("Error creating post:", error);
+        if (error.code === '42501') {
+          alert("Permission denied. Make sure you're signed in with a Cornell email.");
+        } else {
+          alert(`Error creating post: ${error.message}`);
+        }
+        return;
+      }
 
       // Reset form
       setTitle("");
@@ -63,34 +81,60 @@ export default function Composer({ topicId, onPosted }: ComposerProps) {
       if (data && onPosted) {
         onPosted(data);
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error creating post:", error);
+      alert(`Failed to create post: ${error.message || 'Unknown error'}`);
     } finally {
       setIsSubmitting(false);
     }
   };
 
+  const titleLength = title.length;
+  const bodyLength = body.length;
+  const isTitleValid = titleLength >= 5 && titleLength <= 120;
+  const isBodyValid = bodyLength >= 40 && bodyLength <= 1200;
+
   return (
     <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 space-y-5">
       <div>
+        <div className="flex justify-between items-center mb-1">
+          <label className="text-sm font-medium text-gray-700">Title</label>
+          <span className={`text-xs ${isTitleValid ? 'text-gray-500' : 'text-red-600'}`}>
+            {titleLength}/120 (min: 5)
+          </span>
+        </div>
         <input
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="Post title..."
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-base"
+          className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-base ${
+            title && !isTitleValid ? 'border-red-300' : 'border-gray-300'
+          }`}
           required
+          minLength={5}
+          maxLength={120}
         />
       </div>
 
       <div>
+        <div className="flex justify-between items-center mb-1">
+          <label className="text-sm font-medium text-gray-700">Body</label>
+          <span className={`text-xs ${isBodyValid ? 'text-gray-500' : 'text-red-600'}`}>
+            {bodyLength}/1200 (min: 40)
+          </span>
+        </div>
         <textarea
           value={body}
           onChange={(e) => setBody(e.target.value)}
-          placeholder="Write your thoughts..."
+          placeholder="Write your thoughts... (minimum 40 characters)"
           rows={5}
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-base resize-none"
+          className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-base resize-none ${
+            body && !isBodyValid ? 'border-red-300' : 'border-gray-300'
+          }`}
           required
+          minLength={40}
+          maxLength={1200}
         />
       </div>
 
@@ -127,7 +171,7 @@ export default function Composer({ topicId, onPosted }: ComposerProps) {
 
         <button
           type="submit"
-          disabled={isSubmitting || !title.trim() || !body.trim()}
+          disabled={isSubmitting || !isTitleValid || !isBodyValid}
           className="px-6 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors font-medium shadow-sm hover:shadow"
         >
           {isSubmitting ? "Posting..." : "Post"}

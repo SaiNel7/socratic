@@ -34,12 +34,18 @@ export default function TopicPage() {
     if (!topicId) return;
 
     const load = async () => {
-      const { data } = await supabase
+      const { data, error } = await supabase
         .from('posts')
-        .select('id,title,body,tag,is_anonymous,score,created_at,author:profiles(handle)')
+        .select('id,title,body,tag,is_anonymous,score,created_at,author:profiles!posts_author_id_fkey(handle)')
         .eq('topic_id', topicId)
         .order('score', { ascending: false })
         .order('created_at', { ascending: false });
+
+      console.log('Posts query result:', { data, error, topicId });
+      
+      if (error) {
+        console.error('Error fetching posts:', error);
+      }
 
       setPosts(data ?? []);
     };

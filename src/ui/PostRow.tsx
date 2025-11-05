@@ -34,13 +34,13 @@ export default function PostRow({ post }: PostRowProps) {
       if (newVote === 0) {
         // Remove vote
         await supabase
-          .from("post_votes_ip")
+          .from("post_votes_ips")
           .delete()
           .eq("post_id", post.id);
       } else {
         // Upsert vote
         await supabase
-          .from("post_votes_ip")
+          .from("post_votes_ips")
           .upsert({
             post_id: post.id,
             value: newVote,
