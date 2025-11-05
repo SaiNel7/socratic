@@ -8,6 +8,7 @@ export type Topic = {
   id: string;
   slug: string;
   title: string;
+  description?: string | null;
   order_index: number;
 };
 

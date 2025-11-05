@@ -100,7 +100,7 @@ export default function TopicPage() {
     <div className="space-y-4 sm:space-y-6">
       {/* Header */}
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 sm:p-6 md:p-8">
-        <div className="flex items-center justify-between gap-4">
+        <div className="flex items-center justify-between gap-4 mb-4">
           <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 break-words">{topic.title}</h1>
           <button
             onClick={handleNewPostClick}
@@ -109,6 +109,11 @@ export default function TopicPage() {
             {showComposer ? 'Cancel' : '+ New Post'}
           </button>
         </div>
+        {topic.description && (
+          <p className="text-sm sm:text-base text-gray-700 leading-relaxed whitespace-pre-wrap">
+            {topic.description}
+          </p>
+        )}
       </div>
 
       {/* Composer */}

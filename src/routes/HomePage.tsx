@@ -15,7 +15,7 @@ export default function HomePage() {
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 sm:p-6 md:p-8 lg:p-10">
         <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">How to Participate</h2>
         <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
-          Share your insights, questions, or critiques about this topic by posting short, thoughtful notes to help everyone study smarter. Crowdsource your exam preparation!
+          Share your insights, questions, or critiques about this topic by posting short, thoughtful notes to help everyone study smarter!
         </p>
         <br />
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
