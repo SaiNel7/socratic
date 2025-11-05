@@ -13,9 +13,8 @@ export type Topic = {
 
 export type PostTag = 
   | 'Claim'
-  | 'Reason'
   | 'Counterexample'
-  | 'Critique'
+  | 'Objection'
   | 'Definition'
   | 'Quote'
   | 'Question';

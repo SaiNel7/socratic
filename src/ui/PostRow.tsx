@@ -11,9 +11,8 @@ type PostRowProps = {
 
 const TAG_COLORS: Record<PostTag, string> = {
   Claim: "bg-blue-100 text-blue-800",
-  Reason: "bg-green-100 text-green-800",
   Counterexample: "bg-red-100 text-red-800",
-  Critique: "bg-purple-100 text-purple-800",
+  Objection: "bg-purple-100 text-purple-800",
   Definition: "bg-yellow-100 text-yellow-800",
   Quote: "bg-pink-100 text-pink-800",
   Question: "bg-indigo-100 text-indigo-800",
@@ -118,8 +117,6 @@ export default function PostRow({ post }: PostRowProps) {
       setUserVote(serverVote);
       setLastServerState({ score: serverScore, vote: serverVote });
 
-      console.log('Vote reconciled:', { serverScore, serverVote, userIntent: newVote });
-
     } catch (error: any) {
       console.error("Vote failed:", error);
       // Revert to last known good server state
@@ -151,14 +148,14 @@ export default function PostRow({ post }: PostRowProps) {
     : post.author?.handle || "Unknown";
 
   return (
-    <article className="bg-white rounded-xl shadow-sm border border-gray-200 p-5 hover:shadow-md transition-all">
-      <div className="flex gap-4">
+    <article className="bg-white rounded-xl shadow-sm border border-gray-200 p-3 sm:p-5 hover:shadow-md transition-all">
+      <div className="flex gap-2 sm:gap-4">
         {/* Vote buttons */}
         <div className="flex flex-col items-center gap-1 flex-shrink-0">
           <button
             onClick={() => handleVote(1)}
             disabled={isVoting}
-            className={`p-1.5 rounded-lg transition-all ${
+            className={`p-1 sm:p-1.5 rounded-lg transition-all ${
               userVote === 1 
                 ? "text-blue-600 bg-blue-50" 
                 : "text-gray-400 hover:text-blue-600 hover:bg-blue-50"
@@ -166,14 +163,14 @@ export default function PostRow({ post }: PostRowProps) {
             aria-label="Upvote"
           >
             <svg
-              className="w-5 h-5"
+              className="w-4 h-4 sm:w-5 sm:h-5"
               fill="currentColor"
               viewBox="0 0 20 20"
             >
               <path d="M10 3l6 6H4l6-6z" />
             </svg>
           </button>
-          <span className={`text-base font-bold min-w-[2rem] text-center ${
+          <span className={`text-sm sm:text-base font-bold min-w-[1.5rem] sm:min-w-[2rem] text-center ${
             score > 0 ? "text-blue-600" : score < 0 ? "text-red-600" : "text-gray-600"
           }`}>
             {score}
@@ -181,7 +178,7 @@ export default function PostRow({ post }: PostRowProps) {
           <button
             onClick={() => handleVote(-1)}
             disabled={isVoting}
-            className={`p-1.5 rounded-lg transition-all ${
+            className={`p-1 sm:p-1.5 rounded-lg transition-all ${
               userVote === -1 
                 ? "text-red-600 bg-red-50" 
                 : "text-gray-400 hover:text-red-600 hover:bg-red-50"
@@ -189,7 +186,7 @@ export default function PostRow({ post }: PostRowProps) {
             aria-label="Downvote"
           >
             <svg
-              className="w-5 h-5"
+              className="w-4 h-4 sm:w-5 sm:h-5"
               fill="currentColor"
               viewBox="0 0 20 20"
             >
@@ -200,25 +197,25 @@ export default function PostRow({ post }: PostRowProps) {
 
         {/* Post content */}
         <div className="flex-1 min-w-0">
-          <h3 className="text-lg font-bold text-gray-900 leading-snug break-words mb-3">
+          <h3 className="text-base sm:text-lg font-bold text-gray-900 leading-snug break-words mb-2 sm:mb-3">
             {post.title}
           </h3>
 
-          <p className="text-base text-gray-700 mb-4 whitespace-pre-wrap break-words leading-relaxed">
+          <p className="text-sm sm:text-base text-gray-700 mb-3 sm:mb-4 whitespace-pre-wrap break-words leading-relaxed">
             {post.body}
           </p>
 
-          <div className="flex items-center gap-3 text-sm text-gray-500">
+          <div className="flex flex-wrap items-center gap-2 text-xs sm:text-sm text-gray-500">
             <span
-              className={`inline-block px-3 py-1 rounded-lg text-xs font-semibold ${
+              className={`inline-block px-2 sm:px-3 py-0.5 sm:py-1 rounded-lg text-xs font-semibold ${
                 TAG_COLORS[post.tag]
               }`}
             >
               {post.tag}
             </span>
-            <span>•</span>
+            <span className="hidden sm:inline">•</span>
             <span className="font-medium text-gray-700">{authorName}</span>
-            <span>•</span>
+            <span className="hidden sm:inline">•</span>
             <span>{formatDate(post.created_at)}</span>
           </div>
         </div>

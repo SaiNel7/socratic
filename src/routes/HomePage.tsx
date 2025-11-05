@@ -1,21 +1,24 @@
 export default function HomePage() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Hero Section */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 md:p-10">
-        <h1 className="text-4xl font-bold text-gray-900 mb-4">
-          Welcome to Socratic
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 sm:p-6 md:p-8 lg:p-10">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
+          Welcome to Socratic, PHIL 1100 students!
         </h1>
-        <p className="text-lg text-gray-600 leading-relaxed">
-          A platform for philosophical discussion and Socratic dialogue. Select a topic from the sidebar to begin exploring.
+        <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
+          A platform for you to optimize your learning for Prelim 3 via philosophical discussion and Socratic dialogue. Select a topic from the menu to begin exploring.
         </p>
       </div>
 
       {/* How to Participate Section */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 md:p-10">
-        <h2 className="text-2xl font-bold text-gray-900 mb-6">How to Participate</h2>
-        
-        <div className="grid gap-4 sm:grid-cols-2">
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 sm:p-6 md:p-8 lg:p-10">
+        <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">How to Participate</h2>
+        <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
+          Share your insights, questions, or critiques about this topic by posting short, thoughtful notes to help everyone study smarter. Crowdsource your exam preparation!
+        </p>
+        <br />
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <div className="flex gap-3 p-4 rounded-lg bg-blue-50 border border-blue-100">
             <div className="flex-shrink-0">
               <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-semibold">
@@ -25,18 +28,6 @@ export default function HomePage() {
             <div>
               <h3 className="font-semibold text-gray-900 mb-1">Claims</h3>
               <p className="text-sm text-gray-600">Assert a philosophical position</p>
-            </div>
-          </div>
-
-          <div className="flex gap-3 p-4 rounded-lg bg-green-50 border border-green-100">
-            <div className="flex-shrink-0">
-              <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center text-green-600 font-semibold">
-                R
-              </div>
-            </div>
-            <div>
-              <h3 className="font-semibold text-gray-900 mb-1">Reasons</h3>
-              <p className="text-sm text-gray-600">Provide support for claims</p>
             </div>
           </div>
 
@@ -55,12 +46,12 @@ export default function HomePage() {
           <div className="flex gap-3 p-4 rounded-lg bg-purple-50 border border-purple-100">
             <div className="flex-shrink-0">
               <div className="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 font-semibold">
-                C
+                O
               </div>
             </div>
             <div>
-              <h3 className="font-semibold text-gray-900 mb-1">Critiques</h3>
-              <p className="text-sm text-gray-600">Analyze and evaluate arguments</p>
+              <h3 className="font-semibold text-gray-900 mb-1">Objections</h3>
+              <p className="text-sm text-gray-600">Raise concerns or disagreements</p>
             </div>
           </div>
 
@@ -88,7 +79,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="flex gap-3 p-4 rounded-lg bg-indigo-50 border border-indigo-100 sm:col-span-2">
+          <div className="flex gap-3 p-4 rounded-lg bg-indigo-50 border border-indigo-100">
             <div className="flex-shrink-0">
               <div className="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-semibold">
                 ?

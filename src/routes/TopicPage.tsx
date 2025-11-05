@@ -52,8 +52,6 @@ export default function TopicPage() {
         .order('score', { ascending: false })
         .order('created_at', { ascending: false });
 
-      console.log('Posts query result:', { data, error, topicId });
-      
       if (error) {
         console.error('Error fetching posts:', error);
       }
@@ -99,16 +97,18 @@ export default function TopicPage() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Header */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 md:p-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-4">{topic.title}</h1>
-        <button
-          onClick={handleNewPostClick}
-          className="px-5 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium transition-colors shadow-sm hover:shadow"
-        >
-          {showComposer ? 'Cancel' : '+ New Post'}
-        </button>
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 sm:p-6 md:p-8">
+        <div className="flex items-center justify-between gap-4">
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 break-words">{topic.title}</h1>
+          <button
+            onClick={handleNewPostClick}
+            className="px-3 sm:px-5 py-2 sm:py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium transition-colors shadow-sm hover:shadow text-sm sm:text-base whitespace-nowrap flex-shrink-0"
+          >
+            {showComposer ? 'Cancel' : '+ New Post'}
+          </button>
+        </div>
       </div>
 
       {/* Composer */}

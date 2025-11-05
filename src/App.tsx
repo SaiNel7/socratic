@@ -18,6 +18,7 @@ function App() {
   const [authLoading, setAuthLoading] = useState(false);
   const [authMessage, setAuthMessage] = useState('');
   const [toast, setToast] = useState<{ message: string; type: ToastType } | null>(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -92,18 +93,34 @@ function App() {
       <header className="bg-white shadow-sm sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <Link to="/" className="text-2xl font-bold text-blue-600 hover:text-blue-700 transition-colors">
-              Socratic
-            </Link>
+            <div className="flex items-center gap-4">
+              {/* Mobile Menu Button */}
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="lg:hidden p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors"
+                aria-label="Toggle menu"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  {mobileMenuOpen ? (
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  ) : (
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  )}
+                </svg>
+              </button>
+              <Link to="/" className="text-2xl font-bold text-blue-600 hover:text-blue-700 transition-colors">
+                Socratic
+              </Link>
+            </div>
             <nav className="flex items-center gap-4">
               {user ? (
                 <div className="flex items-center gap-3">
-                  <span className="text-sm text-gray-600">
+                  <span className="text-sm text-gray-600 hidden sm:inline">
                     {user.email}
                   </span>
                   <button
                     onClick={handleSignOut}
-                    className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors"
+                    className="px-3 sm:px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors"
                   >
                     Sign Out
                   </button>
@@ -111,7 +128,7 @@ function App() {
               ) : (
                 <button
                   onClick={() => setShowAuthModal(true)}
-                  className="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md transition-colors"
+                  className="px-3 sm:px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md transition-colors"
                 >
                   Sign In
                 </button>
@@ -121,10 +138,61 @@ function App() {
         </div>
       </header>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      {/* Mobile Menu Overlay */}
+      {mobileMenuOpen && (
+        <div className="lg:hidden fixed inset-0 z-40 bg-black/50" onClick={() => setMobileMenuOpen(false)}>
+          <div 
+            className="absolute top-16 left-0 right-0 bg-white shadow-lg max-h-[calc(100vh-4rem)] overflow-y-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="p-4">
+              <h2 className="text-sm font-bold text-gray-900 uppercase tracking-wider mb-4">
+                Topics
+              </h2>
+              <nav className="space-y-1">
+                {loading ? (
+                  <div className="space-y-2">
+                    {[...Array(5)].map((_, i) => (
+                      <div key={i} className="h-10 bg-gray-100 rounded-md animate-pulse" />
+                    ))}
+                  </div>
+                ) : error ? (
+                  <div className="text-sm text-red-600 p-2">
+                    {error}
+                  </div>
+                ) : topics.length === 0 ? (
+                  <div className="text-sm text-gray-500 p-2">
+                    No topics yet. Add some topics to your Supabase database!
+                  </div>
+                ) : (
+                  topics.map((topic) => {
+                    const isActive = location.pathname === `/t/${topic.slug}`;
+                    return (
+                      <Link
+                        key={topic.id}
+                        to={`/t/${topic.slug}`}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className={`block px-4 py-3 text-sm font-medium rounded-lg transition-all ${
+                          isActive
+                            ? 'bg-blue-50 text-blue-700 shadow-sm border border-blue-200'
+                            : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
+                        }`}
+                      >
+                        {topic.title}
+                      </Link>
+                    );
+                  })
+                )}
+              </nav>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
         <div className="flex gap-6">
-          {/* Sidebar */}
-          <aside className="w-72 flex-shrink-0">
+          {/* Desktop Sidebar */}
+          <aside className="hidden lg:block w-72 flex-shrink-0">
             <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 sticky top-24">
               <h2 className="text-sm font-bold text-gray-900 uppercase tracking-wider mb-4">
                 Topics
