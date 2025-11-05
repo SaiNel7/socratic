@@ -2,6 +2,9 @@ import { Link, Outlet, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { supabase } from './lib/supabase';
 import { signInCornell } from './lib/auth';
+import { setToastCallback } from './lib/toast';
+import Toast from './ui/Toast';
+import type { ToastType } from './ui/Toast';
 import type { Topic } from './types/database';
 import type { User } from '@supabase/supabase-js';
 
@@ -14,6 +17,7 @@ function App() {
   const [authEmail, setAuthEmail] = useState('');
   const [authLoading, setAuthLoading] = useState(false);
   const [authMessage, setAuthMessage] = useState('');
+  const [toast, setToast] = useState<{ message: string; type: ToastType } | null>(null);
   const location = useLocation();
 
   useEffect(() => {
@@ -42,6 +46,11 @@ function App() {
   }, []);
 
   useEffect(() => {
+    // Set up toast callback
+    setToastCallback((message, type) => {
+      setToast({ message, type });
+    });
+
     // Check current session
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null);
@@ -224,6 +233,15 @@ function App() {
             </form>
           </div>
         </div>
+      )}
+
+      {/* Toast Notifications */}
+      {toast && (
+        <Toast
+          message={toast.message}
+          type={toast.type}
+          onClose={() => setToast(null)}
+        />
       )}
     </div>
   );

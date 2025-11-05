@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { supabase } from "../lib/supabase";
+import { showToast } from "../lib/toast";
 import type { PostTag } from "../types/database";
 
 type ComposerProps = {
@@ -44,7 +45,7 @@ export default function Composer({ topicId, onPosted }: ComposerProps) {
       const { data: { user }, error: userError } = await supabase.auth.getUser();
       
       if (userError || !user) {
-        alert("You must be signed in to post. Please sign in and try again.");
+        showToast("You must be signed in to post. Please sign in and try again.", "warning");
         setIsSubmitting(false);
         return;
       }
@@ -65,12 +66,14 @@ export default function Composer({ topicId, onPosted }: ComposerProps) {
       if (error) {
         console.error("Error creating post:", error);
         if (error.code === '42501') {
-          alert("Permission denied. Make sure you're signed in with a Cornell email.");
+          showToast("Permission denied. Make sure you're signed in with a Cornell email.", "error");
         } else {
-          alert(`Error creating post: ${error.message}`);
+          showToast(`Error creating post: ${error.message}`, "error");
         }
         return;
       }
+      
+      showToast("Post created successfully!", "success");
 
       // Reset form
       setTitle("");
@@ -83,7 +86,7 @@ export default function Composer({ topicId, onPosted }: ComposerProps) {
       }
     } catch (error: any) {
       console.error("Error creating post:", error);
-      alert(`Failed to create post: ${error.message || 'Unknown error'}`);
+      showToast(`Failed to create post: ${error.message || 'Unknown error'}`, "error");
     } finally {
       setIsSubmitting(false);
     }

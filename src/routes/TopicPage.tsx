@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
+import { showToast } from '../lib/toast';
 import Composer from '../ui/Composer';
 import PostRow from '../ui/PostRow';
 
@@ -12,6 +13,16 @@ export default function TopicPage() {
   const [showComposer, setShowComposer] = useState(false);
 
   const topicId = topic?.id;
+
+  const handleNewPostClick = async () => {
+    // Check if user is signed in
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) {
+      showToast("You must be signed in to create a post", "warning");
+      return;
+    }
+    setShowComposer(!showComposer);
+  };
 
   useEffect(() => {
     async function fetchTopic() {
@@ -52,18 +63,21 @@ export default function TopicPage() {
 
     load();
 
-    // Realtime updates
-    const channel = supabase
+    // Realtime updates for posts (new posts, edits, deletes)
+    const postsChannel = supabase
       .channel(`posts-${topicId}`)
       .on(
         'postgres_changes',
         { event: '*', schema: 'public', table: 'posts', filter: `topic_id=eq.${topicId}` },
-        load
+        () => {
+          // Slight delay to ensure trigger has completed
+          setTimeout(load, 150);
+        }
       )
       .subscribe();
 
     return () => {
-      supabase.removeChannel(channel);
+      supabase.removeChannel(postsChannel);
     };
   }, [topicId]);
 
@@ -90,7 +104,7 @@ export default function TopicPage() {
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 md:p-8">
         <h1 className="text-3xl font-bold text-gray-900 mb-4">{topic.title}</h1>
         <button
-          onClick={() => setShowComposer(!showComposer)}
+          onClick={handleNewPostClick}
           className="px-5 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium transition-colors shadow-sm hover:shadow"
         >
           {showComposer ? 'Cancel' : '+ New Post'}
