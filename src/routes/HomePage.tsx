@@ -18,7 +18,7 @@ export default function HomePage() {
           Share your insights, questions, or critiques about this topic by posting short, thoughtful notes to help everyone study smarter!
         </p>
         <br />
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {/* <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <div className="flex gap-3 p-4 rounded-lg bg-blue-50 border border-blue-100">
             <div className="flex-shrink-0">
               <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-semibold">
@@ -90,7 +90,7 @@ export default function HomePage() {
               <p className="text-sm text-gray-600">Probe deeper into ideas</p>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
