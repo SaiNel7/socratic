@@ -82,16 +82,16 @@ export default function TopicPage() {
   if (loading) {
     return (
       <div className="space-y-4">
-        <div className="h-20 bg-white rounded-xl animate-pulse" />
-        <div className="h-64 bg-white rounded-xl animate-pulse" />
+        <div className="h-20 bg-white dark:bg-gray-800 rounded-xl animate-pulse" />
+        <div className="h-64 bg-white dark:bg-gray-800 rounded-xl animate-pulse" />
       </div>
     );
   }
 
   if (!topic) {
     return (
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 text-center">
-        <p className="text-gray-500">Topic not found</p>
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-8 text-center">
+        <p className="text-gray-500 dark:text-gray-400">Topic not found</p>
       </div>
     );
   }
@@ -99,18 +99,18 @@ export default function TopicPage() {
   return (
     <div className="space-y-4 sm:space-y-6">
       {/* Header */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 sm:p-6 md:p-8">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-4 sm:p-6 md:p-8">
         <div className="flex items-center justify-between gap-4 mb-4">
-          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 break-words">{topic.title}</h1>
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 break-words">{topic.title}</h1>
           <button
             onClick={handleNewPostClick}
-            className="px-3 sm:px-5 py-2 sm:py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium transition-colors shadow-sm hover:shadow text-sm sm:text-base whitespace-nowrap flex-shrink-0"
+            className="px-3 sm:px-5 py-2 sm:py-2.5 bg-blue-600 dark:bg-blue-500 text-white rounded-lg hover:bg-blue-700 dark:hover:bg-blue-600 font-medium transition-colors shadow-sm hover:shadow text-sm sm:text-base whitespace-nowrap flex-shrink-0"
           >
             {showComposer ? 'Cancel' : '+ New Post'}
           </button>
         </div>
         {topic.description && (
-          <p className="text-sm sm:text-base text-gray-700 leading-relaxed whitespace-pre-wrap">
+          <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-wrap">
             {topic.description}
           </p>
         )}
@@ -130,10 +130,10 @@ export default function TopicPage() {
       {/* Posts */}
       <div className="space-y-4">
         {posts.length === 0 ? (
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-12 text-center">
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-12 text-center">
             <div className="max-w-md mx-auto">
               <svg
-                className="w-16 h-16 text-gray-300 mx-auto mb-4"
+                className="w-16 h-16 text-gray-300 dark:text-gray-600 mx-auto mb-4"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -145,8 +145,8 @@ export default function TopicPage() {
                   d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
                 />
               </svg>
-              <p className="text-gray-500 text-lg mb-2">No posts yet</p>
-              <p className="text-gray-400 text-sm">Be the first to contribute to this discussion!</p>
+              <p className="text-gray-500 dark:text-gray-400 text-lg mb-2">No posts yet</p>
+              <p className="text-gray-400 dark:text-gray-500 text-sm">Be the first to contribute to this discussion!</p>
             </div>
           </div>
         ) : (

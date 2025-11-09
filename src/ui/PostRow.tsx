@@ -148,7 +148,7 @@ export default function PostRow({ post }: PostRowProps) {
     : post.author?.handle || "Unknown";
 
   return (
-    <article className="bg-white rounded-xl shadow-sm border border-gray-200 p-3 sm:p-5 hover:shadow-md transition-all">
+    <article className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-3 sm:p-5 hover:shadow-md transition-all">
       <div className="flex gap-2 sm:gap-4">
         {/* Vote buttons */}
         <div className="flex flex-col items-center gap-1 flex-shrink-0">
@@ -157,8 +157,8 @@ export default function PostRow({ post }: PostRowProps) {
             disabled={isVoting}
             className={`p-1 sm:p-1.5 rounded-lg transition-all ${
               userVote === 1 
-                ? "text-blue-600 bg-blue-50" 
-                : "text-gray-400 hover:text-blue-600 hover:bg-blue-50"
+                ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30" 
+                : "text-gray-400 dark:text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30"
             } ${isVoting ? 'opacity-50 cursor-not-allowed' : ''}`}
             aria-label="Upvote"
           >
@@ -171,7 +171,7 @@ export default function PostRow({ post }: PostRowProps) {
             </svg>
           </button>
           <span className={`text-sm sm:text-base font-bold min-w-[1.5rem] sm:min-w-[2rem] text-center ${
-            score > 0 ? "text-blue-600" : score < 0 ? "text-red-600" : "text-gray-600"
+            score > 0 ? "text-blue-600 dark:text-blue-400" : score < 0 ? "text-red-600 dark:text-red-400" : "text-gray-600 dark:text-gray-400"
           }`}>
             {score}
           </span>
@@ -180,8 +180,8 @@ export default function PostRow({ post }: PostRowProps) {
             disabled={isVoting}
             className={`p-1 sm:p-1.5 rounded-lg transition-all ${
               userVote === -1 
-                ? "text-red-600 bg-red-50" 
-                : "text-gray-400 hover:text-red-600 hover:bg-red-50"
+                ? "text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/30" 
+                : "text-gray-400 dark:text-gray-500 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30"
             } ${isVoting ? 'opacity-50 cursor-not-allowed' : ''}`}
             aria-label="Downvote"
           >
@@ -197,15 +197,15 @@ export default function PostRow({ post }: PostRowProps) {
 
         {/* Post content */}
         <div className="flex-1 min-w-0">
-          <h3 className="text-base sm:text-lg font-bold text-gray-900 leading-snug break-words mb-2 sm:mb-3">
+          <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-gray-100 leading-snug break-words mb-2 sm:mb-3">
             {post.title}
           </h3>
 
-          <p className="text-sm sm:text-base text-gray-700 mb-3 sm:mb-4 whitespace-pre-wrap break-words leading-relaxed">
+          <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 mb-3 sm:mb-4 whitespace-pre-wrap break-words leading-relaxed">
             {post.body}
           </p>
 
-          <div className="flex flex-wrap items-center gap-2 text-xs sm:text-sm text-gray-500">
+          <div className="flex flex-wrap items-center gap-2 text-xs sm:text-sm text-gray-500 dark:text-gray-400">
             <span
               className={`inline-block px-2 sm:px-3 py-0.5 sm:py-1 rounded-lg text-xs font-semibold ${
                 TAG_COLORS[post.tag]
@@ -214,7 +214,7 @@ export default function PostRow({ post }: PostRowProps) {
               {post.tag}
             </span>
             <span className="hidden sm:inline">•</span>
-            <span className="font-medium text-gray-700">{authorName}</span>
+            <span className="font-medium text-gray-700 dark:text-gray-300">{authorName}</span>
             <span className="hidden sm:inline">•</span>
             <span>{formatDate(post.created_at)}</span>
           </div>

@@ -96,11 +96,11 @@ export default function Composer({ topicId, onPosted }: ComposerProps) {
   const isBodyValid = bodyLength >= 40 && bodyLength <= 1200;
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 sm:p-6 space-y-4 sm:space-y-5">
+    <form onSubmit={handleSubmit} className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-4 sm:p-6 space-y-4 sm:space-y-5">
       <div>
         <div className="flex justify-between items-center mb-1">
-          <label className="text-sm font-medium text-gray-700">Title</label>
-          <span className={`text-xs ${isTitleValid ? 'text-gray-500' : 'text-red-600'}`}>
+          <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Title</label>
+          <span className={`text-xs ${isTitleValid ? 'text-gray-500 dark:text-gray-400' : 'text-red-600 dark:text-red-400'}`}>
             {titleLength}/120 (min: 5)
           </span>
         </div>
@@ -109,8 +109,8 @@ export default function Composer({ topicId, onPosted }: ComposerProps) {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="Post title..."
-          className={`w-full px-3 sm:px-4 py-2 sm:py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base ${
-            title && !isTitleValid ? 'border-red-300' : 'border-gray-300'
+          className={`w-full px-3 sm:px-4 py-2 sm:py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent text-sm sm:text-base bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 ${
+            title && !isTitleValid ? 'border-red-300 dark:border-red-600' : 'border-gray-300 dark:border-gray-600'
           }`}
           required
           minLength={5}
@@ -120,8 +120,8 @@ export default function Composer({ topicId, onPosted }: ComposerProps) {
 
       <div>
         <div className="flex justify-between items-center mb-1">
-          <label className="text-sm font-medium text-gray-700">Body</label>
-          <span className={`text-xs ${isBodyValid ? 'text-gray-500' : 'text-red-600'}`}>
+          <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Body</label>
+          <span className={`text-xs ${isBodyValid ? 'text-gray-500 dark:text-gray-400' : 'text-red-600 dark:text-red-400'}`}>
             {bodyLength}/1200 (min: 40)
           </span>
         </div>
@@ -130,8 +130,8 @@ export default function Composer({ topicId, onPosted }: ComposerProps) {
           onChange={(e) => setBody(e.target.value)}
           placeholder="Write your thoughts... (minimum 40 characters)"
           rows={5}
-          className={`w-full px-3 sm:px-4 py-2 sm:py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base resize-none ${
-            body && !isBodyValid ? 'border-red-300' : 'border-gray-300'
+          className={`w-full px-3 sm:px-4 py-2 sm:py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent text-sm sm:text-base resize-none bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 ${
+            body && !isBodyValid ? 'border-red-300 dark:border-red-600' : 'border-gray-300 dark:border-gray-600'
           }`}
           required
           minLength={40}
@@ -140,7 +140,7 @@ export default function Composer({ topicId, onPosted }: ComposerProps) {
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Select Tag</label>
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Select Tag</label>
         <div className="flex flex-wrap gap-2">
           {POST_TAGS.map((t) => (
             <button
@@ -149,8 +149,8 @@ export default function Composer({ topicId, onPosted }: ComposerProps) {
               onClick={() => setTag(t)}
               className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-all ${
                 tag === t
-                  ? `${TAG_COLORS[t]} ring-2 ring-offset-1 ring-blue-300`
-                  : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                  ? `${TAG_COLORS[t]} ring-2 ring-offset-1 dark:ring-offset-gray-800 ring-blue-300 dark:ring-blue-500`
+                  : "bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600"
               }`}
             >
               {t}
@@ -165,15 +165,15 @@ export default function Composer({ topicId, onPosted }: ComposerProps) {
             type="checkbox"
             checked={isAnonymous}
             onChange={(e) => setIsAnonymous(e.target.checked)}
-            className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+            className="w-4 h-4 text-blue-600 dark:text-blue-500 border-gray-300 dark:border-gray-600 rounded focus:ring-blue-500 dark:focus:ring-blue-400 bg-white dark:bg-gray-700"
           />
-          <span className="text-sm text-gray-700 group-hover:text-gray-900">Post anonymously</span>
+          <span className="text-sm text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-gray-100">Post anonymously</span>
         </label>
 
         <button
           type="submit"
           disabled={isSubmitting || !isTitleValid || !isBodyValid}
-          className="w-full sm:w-auto px-6 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors font-medium shadow-sm hover:shadow"
+          className="w-full sm:w-auto px-6 py-2.5 bg-blue-600 dark:bg-blue-500 text-white rounded-lg hover:bg-blue-700 dark:hover:bg-blue-600 disabled:bg-gray-400 dark:disabled:bg-gray-600 disabled:cursor-not-allowed transition-colors font-medium shadow-sm hover:shadow"
         >
           {isSubmitting ? "Posting..." : "Post"}
         </button>

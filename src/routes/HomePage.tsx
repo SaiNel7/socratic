@@ -2,19 +2,19 @@ export default function HomePage() {
   return (
     <div className="space-y-4 sm:space-y-6">
       {/* Hero Section */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 sm:p-6 md:p-8 lg:p-10">
-        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-4 sm:p-6 md:p-8 lg:p-10">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-3 sm:mb-4">
           Welcome to Socratic, PHIL 1100 students!
         </h1>
-        <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
+        <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
           A platform for you to optimize your learning for Prelim 3 via philosophical discussion and Socratic dialogue. Select a topic from the menu to begin exploring.
         </p>
       </div>
 
       {/* How to Participate Section */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 sm:p-6 md:p-8 lg:p-10">
-        <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">How to Participate</h2>
-        <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-4 sm:p-6 md:p-8 lg:p-10">
+        <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4 sm:mb-6">How to Participate</h2>
+        <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
           Share your insights, questions, or critiques about this topic by posting short, thoughtful notes to help everyone study smarter!
         </p>
         <br />
