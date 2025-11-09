@@ -1,7 +1,7 @@
 -- Create resources table for course materials
 CREATE TABLE IF NOT EXISTS resources (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-  title TEXT NOT NULL,
+  title TEXT NOT NULL UNIQUE,
   description TEXT,
   category TEXT NOT NULL CHECK (category IN ('Lecture Notes', 'Practice Exams', 'Other Materials')),
   file_url TEXT NOT NULL,
