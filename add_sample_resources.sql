@@ -11,6 +11,8 @@ INSERT INTO resources (title, description, category, file_url, file_size, order_
 INSERT INTO resources (title, description, category, file_url, file_size, order_index) VALUES
 ('God Notes', 'Sorry for the poor handwriting', 'Lecture Notes', 'https://vzsjytauzlytwzygeyjm.supabase.co/storage/v1/object/public/resources/Notes.pdf', '14.6 MB', 3);
 
+INSERT INTO resources (title, description, category, file_url, file_size, order_index) VALUES
+('Short Essay Structure', 'Suggested in discussion', 'Other Materials', 'https://vzsjytauzlytwzygeyjm.supabase.co/storage/v1/object/public/resources/SuggestedEssayStructure.pdf', '41 KB', 4);
 -- To upload files and get URLs, you can:
 -- 1. Use Supabase Storage (recommended if using Supabase):
 --    - Go to your Supabase dashboard
