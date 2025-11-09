@@ -146,6 +146,22 @@ function App() {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="p-4">
+              <Link
+                to="/resources"
+                onClick={() => setMobileMenuOpen(false)}
+                className={`block px-4 py-3 mb-4 text-sm font-medium rounded-lg transition-all ${
+                  location.pathname === '/resources'
+                    ? 'bg-green-50 text-green-700 shadow-sm border border-green-200'
+                    : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900 border border-gray-200'
+                }`}
+              >
+                <div className="flex items-center gap-2">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                  </svg>
+                  Course Resources
+                </div>
+              </Link>
               <h2 className="text-sm font-bold text-gray-900 uppercase tracking-wider mb-4">
                 Topics
               </h2>
@@ -194,6 +210,21 @@ function App() {
           {/* Desktop Sidebar */}
           <aside className="hidden lg:block w-72 flex-shrink-0">
             <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 sticky top-24">
+              <Link
+                to="/resources"
+                className={`block px-4 py-3 mb-4 text-sm font-medium rounded-lg transition-all ${
+                  location.pathname === '/resources'
+                    ? 'bg-green-50 text-green-700 shadow-sm border border-green-200'
+                    : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900 border border-gray-200'
+                }`}
+              >
+                <div className="flex items-center gap-2">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                  </svg>
+                  Course Resources
+                </div>
+              </Link>
               <h2 className="text-sm font-bold text-gray-900 uppercase tracking-wider mb-4">
                 Topics
               </h2>

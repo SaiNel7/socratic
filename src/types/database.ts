@@ -44,3 +44,16 @@ export type PostVoteIP = {
   value: -1 | 1;
 };
 
+export type ResourceCategory = 'Lecture Notes' | 'Practice Exams' | 'Other Materials';
+
+export type Resource = {
+  id: string;
+  title: string;
+  description: string | null;
+  category: ResourceCategory;
+  file_url: string;
+  file_size: string | null;
+  order_index: number;
+  created_at: string;
+};
+
